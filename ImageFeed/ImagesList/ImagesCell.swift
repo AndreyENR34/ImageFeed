@@ -10,6 +10,17 @@ import UIKit
 
 final class ImagesListCell: UITableViewCell {
 
-
+  
+    @IBOutlet var imageCell: UIImageView!
+    
+    @IBOutlet var dateLabel: UILabel!
+    
+    @IBOutlet var likeButton: UIButton!
+    
+    @IBAction func likeButton(_ sender: Any) {
+    }
+    
+    
+    
     static let reuseIdentifier = "ImagesListCell"
 }
