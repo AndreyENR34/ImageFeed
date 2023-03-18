@@ -180,7 +180,7 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 1" translatesAutoresizingMaskIntoConstraints="NO" id="10N-cD-Kyz">
-                                <rect key="frame" x="171.66666666666666" y="717" width="50" height="50"/>
+                                <rect key="frame" x="171.66666666666666" y="751" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9YU-Jj-rZg"/>
                                     <constraint firstAttribute="width" constant="50" id="fdh-0j-vhZ"/>
@@ -188,7 +188,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvu-7h-HZ7">
-                                <rect key="frame" x="185" y="730" width="23" height="22"/>
+                                <rect key="frame" x="185" y="764" width="23" height="22"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Group 431">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -205,12 +205,12 @@
                             <constraint firstItem="0Xl-7M-dqL" firstAttribute="leading" secondItem="SkF-OA-fLh" secondAttribute="leading" constant="8" id="FUT-S3-Pqu"/>
                             <constraint firstItem="10N-cD-Kyz" firstAttribute="centerX" secondItem="SkF-OA-fLh" secondAttribute="centerX" id="II3-vC-HWi"/>
                             <constraint firstItem="Gvu-7h-HZ7" firstAttribute="centerX" secondItem="SkF-OA-fLh" secondAttribute="centerX" id="LbG-p1-Ehl"/>
-                            <constraint firstItem="SkF-OA-fLh" firstAttribute="bottom" secondItem="10N-cD-Kyz" secondAttribute="bottom" constant="51" id="MQ9-TL-E9F"/>
+                            <constraint firstAttribute="bottom" secondItem="10N-cD-Kyz" secondAttribute="bottom" constant="51" id="MQ9-TL-E9F"/>
                             <constraint firstItem="CFW-LG-AA5" firstAttribute="leading" secondItem="SkF-OA-fLh" secondAttribute="leading" id="Rjp-it-xac"/>
                             <constraint firstItem="SkF-OA-fLh" firstAttribute="trailing" secondItem="CFW-LG-AA5" secondAttribute="trailing" id="TB7-tA-ZqA"/>
                             <constraint firstAttribute="bottom" secondItem="CFW-LG-AA5" secondAttribute="bottom" id="Wyo-N4-bOq"/>
                             <constraint firstItem="CFW-LG-AA5" firstAttribute="top" secondItem="gOn-Oe-4Sc" secondAttribute="top" id="jxS-1A-Dnl"/>
-                            <constraint firstItem="SkF-OA-fLh" firstAttribute="bottom" secondItem="Gvu-7h-HZ7" secondAttribute="bottom" constant="66" id="nCN-mP-flE"/>
+                            <constraint firstAttribute="bottom" secondItem="Gvu-7h-HZ7" secondAttribute="bottom" constant="66" id="nCN-mP-flE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Gk3-CY-zqo"/>
