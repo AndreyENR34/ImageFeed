@@ -205,12 +205,12 @@
                             <constraint firstItem="0Xl-7M-dqL" firstAttribute="leading" secondItem="SkF-OA-fLh" secondAttribute="leading" constant="8" id="FUT-S3-Pqu"/>
                             <constraint firstItem="10N-cD-Kyz" firstAttribute="centerX" secondItem="SkF-OA-fLh" secondAttribute="centerX" id="II3-vC-HWi"/>
                             <constraint firstItem="Gvu-7h-HZ7" firstAttribute="centerX" secondItem="SkF-OA-fLh" secondAttribute="centerX" id="LbG-p1-Ehl"/>
-                            <constraint firstAttribute="bottom" secondItem="10N-cD-Kyz" secondAttribute="bottom" constant="51" id="MQ9-TL-E9F"/>
+                            <constraint firstItem="SkF-OA-fLh" firstAttribute="bottom" secondItem="10N-cD-Kyz" secondAttribute="bottom" constant="17" id="MQ9-TL-E9F"/>
                             <constraint firstItem="CFW-LG-AA5" firstAttribute="leading" secondItem="SkF-OA-fLh" secondAttribute="leading" id="Rjp-it-xac"/>
                             <constraint firstItem="SkF-OA-fLh" firstAttribute="trailing" secondItem="CFW-LG-AA5" secondAttribute="trailing" id="TB7-tA-ZqA"/>
                             <constraint firstAttribute="bottom" secondItem="CFW-LG-AA5" secondAttribute="bottom" id="Wyo-N4-bOq"/>
                             <constraint firstItem="CFW-LG-AA5" firstAttribute="top" secondItem="gOn-Oe-4Sc" secondAttribute="top" id="jxS-1A-Dnl"/>
-                            <constraint firstAttribute="bottom" secondItem="Gvu-7h-HZ7" secondAttribute="bottom" constant="66" id="nCN-mP-flE"/>
+                            <constraint firstItem="SkF-OA-fLh" firstAttribute="bottom" secondItem="Gvu-7h-HZ7" secondAttribute="bottom" constant="32" id="nCN-mP-flE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Gk3-CY-zqo"/>
