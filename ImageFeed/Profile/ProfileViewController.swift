@@ -16,7 +16,7 @@ final class ProfileViewController: UIViewController {
     
     let nameLabel = UILabel()
     let name = "Екатерина Новикова"
-
+    
     let statusLabel = UILabel()
     let status = "Hello, world!"
     
@@ -31,39 +31,43 @@ final class ProfileViewController: UIViewController {
         showlogOutButton()
     }
     
-   private func showPhotoView() {
+    private func showPhotoView() {
         let profilePhotoView = UIImageView(image: profileImage)
         view.addSubview(profilePhotoView)
         profilePhotoView.translatesAutoresizingMaskIntoConstraints = false
-       NSLayoutConstraint.activate([
-        profilePhotoView.topAnchor.constraint(equalTo: view.topAnchor, constant: 76),
-        profilePhotoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-        profilePhotoView.heightAnchor.constraint(equalToConstant: 70),
-        profilePhotoView.widthAnchor.constraint(equalToConstant: 70)
+        NSLayoutConstraint.activate([
+            profilePhotoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            profilePhotoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            profilePhotoView.heightAnchor.constraint(equalToConstant: 70),
+            profilePhotoView.widthAnchor.constraint(equalToConstant: 70)
         ])
     }
     
-   private func showEmailLabel() {
-        view.addSubview(emailLabel)
-        emailLabel.textColor = UIColor(named: "YPGrey")
-        emailLabel.text = email
-        emailLabel.font = UIFont(name: "SFPro-Regular", size: 13)
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-       NSLayoutConstraint.activate([
-        emailLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-        emailLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 180)
-        ])
-    }
-    
-   private func showNameLabel() {
+    private func showNameLabel() {
         view.addSubview(nameLabel)
         nameLabel.textColor = UIColor(named: "YPWhite")
         nameLabel.text = name
         nameLabel.font = UIFont(name: "SFPro-Bold", size: 23)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-       NSLayoutConstraint.activate([
-        nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-        nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 154)
+        NSLayoutConstraint.activate([
+            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 110),
+            nameLabel.heightAnchor.constraint(equalToConstant: 18),
+            nameLabel.widthAnchor.constraint(equalToConstant: 235)
+        ])
+    }
+    
+    private func showEmailLabel() {
+        view.addSubview(emailLabel)
+        emailLabel.textColor = UIColor(named: "YPGrey")
+        emailLabel.text = email
+        emailLabel.font = UIFont(name: "SFPro-Regular", size: 13)
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            emailLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            emailLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 136),
+            emailLabel.heightAnchor.constraint(equalToConstant: 18),
+            emailLabel.widthAnchor.constraint(equalToConstant: 99)
         ])
     }
     
@@ -74,8 +78,10 @@ final class ProfileViewController: UIViewController {
         statusLabel.font = UIFont(name: "SFPro-Regular", size: 13)
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-        statusLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 206),
-        statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16)
+            statusLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 162),
+            statusLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            statusLabel.heightAnchor.constraint(equalToConstant: 18),
+            statusLabel.widthAnchor.constraint(equalToConstant: 77)
         ])
     }
     
@@ -86,10 +92,10 @@ final class ProfileViewController: UIViewController {
         logOutButton.translatesAutoresizingMaskIntoConstraints = false
         logOutButton.tintColor = UIColor(named: "YPRed")
         NSLayoutConstraint.activate([
-        logOutButton.widthAnchor.constraint(equalToConstant: 20),
-        logOutButton.heightAnchor.constraint(equalToConstant: 22),
-        logOutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-        logOutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26)
+            logOutButton.widthAnchor.constraint(equalToConstant: 20),
+            logOutButton.heightAnchor.constraint(equalToConstant: 22),
+            logOutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 56),
+            logOutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26)
         ])
     }
     
