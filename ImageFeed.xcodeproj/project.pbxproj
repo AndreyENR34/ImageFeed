@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB03797029D7C90A0067A8BF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03796F29D7C90A0067A8BF /* Constants.swift */; };
+		DB03797329D80C7D0067A8BF /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03797229D80C7D0067A8BF /* AuthViewController.swift */; };
+		DB03797629D80CDA0067A8BF /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB03797529D80CDA0067A8BF /* WebViewViewController.swift */; };
 		DB16FDE229B737EE005FA5EC /* ImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB16FDE129B737EE005FA5EC /* ImagesCell.swift */; };
 		DB50915529BC2D65004E5658 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB50915429BC2D65004E5658 /* ProfileViewController.swift */; };
 		DB50915C29C02B1C004E5658 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB50915B29C02B1C004E5658 /* SingleImageViewController.swift */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB03796F29D7C90A0067A8BF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		DB03797229D80C7D0067A8BF /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		DB03797529D80CDA0067A8BF /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		DB16FDE129B737EE005FA5EC /* ImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCell.swift; sourceTree = "<group>"; };
 		DB50915429BC2D65004E5658 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DB50915B29C02B1C004E5658 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +51,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB03797429D80C9E0067A8BF /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				DB03797229D80C7D0067A8BF /* AuthViewController.swift */,
+				DB03797529D80CDA0067A8BF /* WebViewViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		DB16FDE329B737FE005FA5EC /* ImagesList */ = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				DB50915429BC2D65004E5658 /* ProfileViewController.swift */,
+				DB03796F29D7C90A0067A8BF /* Constants.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -94,8 +110,9 @@
 				DB51D7C329A034950060FFD7 /* SceneDelegate.swift */,
 				DB50915A29BC4215004E5658 /* Profile */,
 				DB16FDE329B737FE005FA5EC /* ImagesList */,
-				DB51D7C729A034950060FFD7 /* Main.storyboard */,
 				DB51D7CC29A034970060FFD7 /* LaunchScreen.storyboard */,
+				DB51D7C729A034950060FFD7 /* Main.storyboard */,
+				DB03797429D80C9E0067A8BF /* Auth */,
 				DB51D7CF29A034970060FFD7 /* Info.plist */,
 				DB51D7CA29A034970060FFD7 /* Assets.xcassets */,
 				DBE883D029C9E46000B1B4CC /* Fonts */,
@@ -184,9 +201,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB51D7C629A034950060FFD7 /* ImagesListViewController.swift in Sources */,
+				DB03797629D80CDA0067A8BF /* WebViewViewController.swift in Sources */,
 				DB16FDE229B737EE005FA5EC /* ImagesCell.swift in Sources */,
 				DB50915529BC2D65004E5658 /* ProfileViewController.swift in Sources */,
 				DB51D7C229A034950060FFD7 /* AppDelegate.swift in Sources */,
+				DB03797329D80C7D0067A8BF /* AuthViewController.swift in Sources */,
+				DB03797029D7C90A0067A8BF /* Constants.swift in Sources */,
 				DB50915C29C02B1C004E5658 /* SingleImageViewController.swift in Sources */,
 				DB51D7C429A034950060FFD7 /* SceneDelegate.swift in Sources */,
 			);
