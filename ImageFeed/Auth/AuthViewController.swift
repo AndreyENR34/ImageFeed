@@ -9,8 +9,14 @@ import UIKit
 
 final class AuthViewController: UIViewController {
     
+    weak var delegate: AuthViewControllerDelegate?
     
- private let ShowWebViewSegueIdentifier = "ShowWebView"
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+    }
+    
+    private let ShowWebViewSegueIdentifier = "ShowWebView"
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowWebViewSegueIdentifier {
@@ -26,13 +32,24 @@ final class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
-    func webViewViewController(_vc: WebViewViewController, didAuthenticateWithCode: String) {
-        //TODO: process code
+    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
+        
+        
+        delegate?.authViewController(self, didAuthenticateWithCode: code)
+        
+      
+        
     }
     
-    func webViewViewControllerDidCancel(_vc: WebViewViewController) {
+    
+    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
     }
     
     
+    
+}
+
+protocol AuthViewControllerDelegate: AnyObject {
+    func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
 }

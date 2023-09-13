@@ -8,8 +8,8 @@
 import UIKit
 
 final class ImagesListCell: UITableViewCell {
-
-  
+    
+    
     @IBOutlet var imageCell: UIImageView!
     
     @IBOutlet var dateLabel: UILabel!
@@ -18,7 +18,6 @@ final class ImagesListCell: UITableViewCell {
     
     @IBAction func likeButton(_ sender: Any) {
     }
-    
     
     
     static let reuseIdentifier = "ImagesListCell"
