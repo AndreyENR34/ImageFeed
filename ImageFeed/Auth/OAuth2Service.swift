@@ -10,8 +10,9 @@ import Foundation
 
 final class OAuth2Service {
     
-    
-    static let shared = OAuth2Service()
+    var lastCode: String?
+    var fetchOneWork = false
+   static let shared = OAuth2Service()
     private let urlSession = URLSession.shared
     private (set) var authToken: String? {
         get {
@@ -23,6 +24,10 @@ final class OAuth2Service {
     func fetchAuthToken(
         _ code: String,
         completion: @escaping (Result<String, Error>) -> Void ){
+            assert(Thread.isMainThread)
+            if lastCode == code {return}
+            if fetchOneWork {return}
+            fetchOneWork = true
             let request = authTokenRequest(code: code)
             let task = object(for: request) { [weak self] result in
                 switch result {
@@ -30,6 +35,7 @@ final class OAuth2Service {
                     TabBarController().switchToTabBarController()
                     let authToken = body.accessToken
                     OAuth2TokenStorage().token = authToken
+                    print(authToken)
                     self?.authToken = authToken
                     completion(.success(authToken))
                 case .failure(let error):
@@ -44,11 +50,10 @@ extension OAuth2Service {
         completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void
     ) -> URLSessionTask {
         let decoder = JSONDecoder()
-        return urlSession.data(for: request) { (result: Result<Data, Error>) in
+        return urlSession.edata(for: request) { (result: Result<Data, Error>) in
             let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
                 Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
             }
-            print("gckhgvkcg \(response)")
             completion(response)
         }
     }
@@ -89,6 +94,7 @@ extension URLRequest {
         
         var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
         request.httpMethod = httpMethod
+        print(request)
         return request
     } }
 // MARK: - Network Connection
@@ -98,7 +104,7 @@ enum NetworkError: Error {
     case urlSessionError
 }
 extension URLSession {
-    func data(
+   func edata(
         for request: URLRequest,
         completion: @escaping (Result<Data, Error>) -> Void
     ) -> URLSessionTask {
@@ -113,6 +119,8 @@ extension URLSession {
                let statusCode = (response as? HTTPURLResponse)?.statusCode
             {
                 if 200 ..< 300 ~= statusCode {
+                    print(statusCode)
+                    print(data)
                     fulfillCompletion(.success(data))
                 } else {
                     fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))

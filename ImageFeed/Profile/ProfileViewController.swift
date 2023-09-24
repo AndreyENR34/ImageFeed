@@ -9,16 +9,18 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
-    let profileImage = UIImage(named: "profileImage")
+    private let profileservice = ProfileService.shared
+    
+    var profileImage = UIImage(named: "profileImage")
     
     let emailLabel = UILabel()
-    let email = "@ekaterina_nov"
+    var email = "@ekaterina_nov"
     
     let nameLabel = UILabel()
-    let name = "Екатерина Новикова"
+    var name = "Екатерина Новикова"
     
     let statusLabel = UILabel()
-    let status = "Hello, world!"
+    var status = "Hello, world!"
     
     let logOutButton = UIButton()
     
@@ -29,6 +31,13 @@ final class ProfileViewController: UIViewController {
         showNameLabel()
         showStatusLabel()
         showlogOutButton()
+        updateProfileDetails()
+    }
+    
+    private func updateProfileDetails() {
+        emailLabel.text = profileservice.profile?.loginName
+        nameLabel.text = profileservice.profile?.name
+        statusLabel.text = profileservice.profile?.bio
     }
     
     private func showPhotoView() {
