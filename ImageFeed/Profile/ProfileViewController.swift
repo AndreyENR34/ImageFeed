@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
     private let profileservice = ProfileService.shared
+    private let profileimageservice = ProfileImageService.shared
     
     var profileImage = UIImage(named: "profileImage")
     
@@ -38,6 +40,20 @@ final class ProfileViewController: UIViewController {
         emailLabel.text = profileservice.profile?.loginName
         nameLabel.text = profileservice.profile?.name
         statusLabel.text = profileservice.profile?.bio
+        guard let avatarURL = profileimageservice.avatarURl else {
+            return}
+        let imageUrlPath = URL(string: avatarURL)
+        let profilePhotoView = UIImageView()
+        
+        profilePhotoView.kf.setImage(with: imageUrlPath)
+        view.addSubview(profilePhotoView)
+        profilePhotoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            profilePhotoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            profilePhotoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            profilePhotoView.heightAnchor.constraint(equalToConstant: 70),
+            profilePhotoView.widthAnchor.constraint(equalToConstant: 70)
+        ])
     }
     
     private func showPhotoView() {

@@ -7,6 +7,18 @@
 
 import Foundation
 
+struct OAuthTokenResponseBody: Decodable {
+    let accessToken: String
+    let tokenType: String
+    let scope: String
+    let createdAt: Int
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+        case tokenType = "token_type"
+        case scope = "scope"
+        case createdAt = "created_at"
+    }
+}
 
 final class OAuth2Service {
     
@@ -25,6 +37,7 @@ final class OAuth2Service {
         _ code: String,
         completion: @escaping (Result<String, Error>) -> Void ){
             assert(Thread.isMainThread)
+                SplashViewController().showNetworkError()
             if lastCode == code {return}
             if fetchOneWork {return}
             fetchOneWork = true
@@ -39,6 +52,7 @@ final class OAuth2Service {
                     self?.authToken = authToken
                     completion(.success(authToken))
                 case .failure(let error):
+                   
                     completion(.failure(error))
                 } }
             task.resume()
@@ -49,11 +63,8 @@ extension OAuth2Service {
         for request: URLRequest,
         completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void
     ) -> URLSessionTask {
-        let decoder = JSONDecoder()
-        return urlSession.edata(for: request) { (result: Result<Data, Error>) in
-            let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
-                Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
-            }
+        return urlSession.objectTask(for: request) { (result: Result<OAuthTokenResponseBody, Error>) in
+            let response = result
             completion(response)
         }
     }
@@ -68,18 +79,9 @@ extension OAuth2Service {
             httpMethod: "POST",
             baseURL: URL(string: "https://unsplash.com")!
         ) }
-    struct OAuthTokenResponseBody: Decodable {
-        let accessToken: String
-        let tokenType: String
-        let scope: String
-        let createdAt: Int
-        enum CodingKeys: String, CodingKey {
-            case accessToken = "access_token"
-            case tokenType = "token_type"
-            case scope = "scope"
-            case createdAt = "created_at"
-        }
-    } }
+    
+    
+}
 
 
 
@@ -94,7 +96,6 @@ extension URLRequest {
         
         var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
         request.httpMethod = httpMethod
-        print(request)
         return request
     } }
 // MARK: - Network Connection
@@ -102,13 +103,16 @@ enum NetworkError: Error {
     case httpStatusCode(Int)
     case urlRequestError(Error)
     case urlSessionError
+    case makeGenericError
 }
-extension URLSession {
-   func edata(
+
+
+public extension URLSession {
+    func objectTask<T: Decodable>(
         for request: URLRequest,
-        completion: @escaping (Result<Data, Error>) -> Void
+        completion: @escaping (Result<T, Error>) -> Void
     ) -> URLSessionTask {
-        let fulfillCompletion: (Result<Data, Error>) -> Void = { result in
+        let fulfillCompletion: (Result<T, Error>) -> Void = { result in
             DispatchQueue.main.async {
                 completion(result)
             }
@@ -119,20 +123,28 @@ extension URLSession {
                let statusCode = (response as? HTTPURLResponse)?.statusCode
             {
                 if 200 ..< 300 ~= statusCode {
-                    print(statusCode)
-                    print(data)
-                    fulfillCompletion(.success(data))
+                    do{
+                        let decoder = JSONDecoder()
+                        let result = try decoder.decode(T.self,from: data)
+                            fulfillCompletion(.success(result as! T))
+                    } catch {fulfillCompletion(.failure(error))
+                    }
                 } else {
-                    fulfillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
+                    fulfillCompletion(.failure(NetworkError.makeGenericError))
                 }
             } else if let error = error {
-                fulfillCompletion(.failure(NetworkError.urlRequestError(error)))
+                fulfillCompletion(.failure(error))
+                
             } else {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
+    
         })
-        task.resume()
         return task
-    } }
+       
+       
+     }
+    
+}
 
 

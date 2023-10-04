@@ -8,6 +8,8 @@
 import UIKit
 import ProgressHUD
 
+
+
 final class UIBlockingProgressHUD {
     private static var window: UIWindow? {
         return UIApplication.shared.windows.first
@@ -31,10 +33,13 @@ final class SplashViewController: UIViewController {
     
     private  let ShowAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreenSegueIdentifier"
     
+  
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
         
+        
+      
         if  OAuth2TokenStorage().token == "" {
             performSegue(withIdentifier: ShowAuthenticationScreenSegueIdentifier, sender: nil)
             
@@ -62,6 +67,24 @@ extension SplashViewController {
     }
 }
 
+extension SplashViewController {
+    func showNetworkError() {
+        
+        
+        let alert = UIAlertController(title: "Что-то пошло не так(",
+                                     message: "Не удалось войти в систему",
+                                      preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        alert.addAction(action)
+        
+            self.present(alert, animated: true)
+    }
+    }
+  
+
+
 extension SplashViewController: AuthViewControllerDelegate  {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
         
@@ -88,8 +111,7 @@ extension SplashViewController: AuthViewControllerDelegate  {
                 
                case .failure(let error):
                    UIBlockingProgressHUD.dismiss()
-                   print("We get error \(error)")
-                   // TODO [Sprint 11] Показать ошибку
+                    self.showNetworkError()
                    break
                }
            }
@@ -109,7 +131,8 @@ extension SplashViewController: AuthViewControllerDelegate  {
                             switch result {
                             case .success(let imageURL):
                                 self?.profileImageService.fetchProfileImageOneWork = false
-                                let gf = imageURL
+                                
+                                
                               
                                 
                             case .failure:
@@ -118,9 +141,9 @@ extension SplashViewController: AuthViewControllerDelegate  {
                         }
                         UIBlockingProgressHUD.dismiss()
                         TabBarController().switchToTabBarController()
-                    case .failure:
+                    case .failure(let error):
                         UIBlockingProgressHUD.dismiss()
-                        // TODO [Sprint 11] Показать ошибку
+                        
                         break
                     }
                 }

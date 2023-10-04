@@ -57,14 +57,8 @@ extension ProfileService {
         for request: URLRequest,
         completion: @escaping (Result<ProfileResult, Error>) -> Void
     ) -> URLSessionTask {
-        let decoder = JSONDecoder()
-      //  print(String(data: self.data!, encoding: .utf8))
-      //  print(urlSession.data)
-        return urlSession.data(for: request) { (result: Result<Data, Error>) in
-            let response = result.flatMap { data -> Result<ProfileResult, Error> in
-                Result { try decoder.decode(ProfileResult.self, from: data) }
-            }
-           
+        return urlSession.objectTask(for: request) { (result: Result<ProfileResult, Error>) in
+            let response = result
             completion(response)
         }
     }
@@ -111,37 +105,3 @@ enum NetworkErrorProfileService: Error {
     case urlRequestError(Error)
     case urlSessionError
 }
-extension URLSession {
-    func data(
-        for request: URLRequest,
-        completion: @escaping (Result<Data, Error>) -> Void
-    ) -> URLSessionTask {
-        let fulfillCompletion: (Result<Data, Error>) -> Void = { result in
-            DispatchQueue.main.async {
-                completion(result)
-            }
-        }
-        let task = dataTask(with: request, completionHandler: { data, response, error in
-            if let data = data,
-               let response = response,
-               let statusCode = (response as? HTTPURLResponse)?.statusCode
-            {
-                if 200 ..< 300 ~= statusCode {
-                    print(statusCode)
-                    fulfillCompletion(.success(data))
-                    
-                } else {
-                    fulfillCompletion(.failure(NetworkErrorProfileService.httpStatusCode(statusCode)))
-                }
-            } else if let error = error {
-                fulfillCompletion(.failure(NetworkErrorProfileService.urlRequestError(error)))
-            } else {
-                fulfillCompletion(.failure(NetworkErrorProfileService.urlSessionError))
-            }
-        })
-        task.resume()
-        return task
-    }
-}
-
-
