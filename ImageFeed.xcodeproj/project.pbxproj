@@ -28,7 +28,7 @@
 		DBC204C42AB553670064CDD1 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC204C32AB553670064CDD1 /* ProfileService.swift */; };
 		DBD0249B2ACADAA100D49E1A /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0249A2ACADAA100D49E1A /* Kingfisher */; };
 		DBD0249E2ACC287F00D49E1A /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = DBD0249D2ACC287F00D49E1A /* SwiftKeychainWrapper */; };
-		DBD024A32ACD102B00D49E1A /* TabBarController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD024A22ACD102B00D49E1A /* TabBarController2.swift */; };
+		DBD024A32ACD102B00D49E1A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD024A22ACD102B00D49E1A /* TabBarController.swift */; };
 		DBE883CF29C9E45900B1B4CC /* SF-Pro.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DBE883CE29C9E45900B1B4CC /* SF-Pro.ttf */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +53,7 @@
 		DB9214642AB0863800543633 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		DBC204BD2AB19FEB0064CDD1 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DBC204C32AB553670064CDD1 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
-		DBD024A22ACD102B00D49E1A /* TabBarController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController2.swift; sourceTree = "<group>"; };
+		DBD024A22ACD102B00D49E1A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		DBE883CE29C9E45900B1B4CC /* SF-Pro.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -119,7 +119,7 @@
 		DB51D7B529A034950060FFD7 = {
 			isa = PBXGroup;
 			children = (
-				DBD024A22ACD102B00D49E1A /* TabBarController2.swift */,
+				DBD024A22ACD102B00D49E1A /* TabBarController.swift */,
 				DB51D7C029A034950060FFD7 /* ImageFeed */,
 				DB51D7BF29A034950060FFD7 /* Products */,
 			);
@@ -142,7 +142,6 @@
 				DB9214662AB0864900543633 /* SplashViewController */,
 				DB50915A29BC4215004E5658 /* Profile */,
 				DBC204C52AB553710064CDD1 /* ProfileService */,
-				DB0303DA2AC0029A00894812 /* ProfileImageService */,
 				DB16FDE329B737FE005FA5EC /* ImagesList */,
 				DB51D7CC29A034970060FFD7 /* LaunchScreen.storyboard */,
 				DB51D7C729A034950060FFD7 /* Main.storyboard */,
@@ -174,6 +173,7 @@
 		DBC204C52AB553710064CDD1 /* ProfileService */ = {
 			isa = PBXGroup;
 			children = (
+				DB0303DA2AC0029A00894812 /* ProfileImageService */,
 				DBC204C32AB553670064CDD1 /* ProfileService.swift */,
 			);
 			path = ProfileService;
@@ -273,7 +273,7 @@
 				DB03797629D80CDA0067A8BF /* WebViewViewController.swift in Sources */,
 				DB16FDE229B737EE005FA5EC /* ImagesCell.swift in Sources */,
 				DB9214652AB0863800543633 /* SplashViewController.swift in Sources */,
-				DBD024A32ACD102B00D49E1A /* TabBarController2.swift in Sources */,
+				DBD024A32ACD102B00D49E1A /* TabBarController.swift in Sources */,
 				DB50915529BC2D65004E5658 /* ProfileViewController.swift in Sources */,
 				DB2998C229E95DCC00F1DFEB /* OAuth2TokenStorage.swift in Sources */,
 				DB51D7C229A034950060FFD7 /* AppDelegate.swift in Sources */,

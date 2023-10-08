@@ -5,10 +5,10 @@
 //  Created by Andrey Nikolaev on 13.09.2023.
 //
 
-import Foundation
+
 import UIKit
 
-final class TabBarController {
+final class TabBarViewController {
     
     
     func switchToTabBarController() {
@@ -22,3 +22,4 @@ final class TabBarController {
     }
     
 }
+

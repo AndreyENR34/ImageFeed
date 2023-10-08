@@ -45,7 +45,7 @@ final class OAuth2Service {
             let task = object(for: request) { [weak self] result in
                 switch result {
                 case .success(let body):
-                    TabBarController().switchToTabBarController()
+                    TabBarViewController().switchToTabBarController()
                     let authToken = body.accessToken
                     OAuth2TokenStorage().token = authToken
                     print(authToken)

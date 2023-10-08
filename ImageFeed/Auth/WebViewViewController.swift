@@ -77,14 +77,14 @@ final class WebViewViewController: UIViewController  {
     func code(from navigationAction: WKNavigationAction) -> String? {
         if
             let url = navigationAction.request.url,
-            let urlComponents = URLComponents(string: url.absoluteString),     //2
-            urlComponents.path == "/oauth/authorize/native",                   //3
-            let items = urlComponents.queryItems,                              //4
-            let codeItem = items.first(where: { $0.name == "code"})            //5
+            let urlComponents = URLComponents(string: url.absoluteString),
+            urlComponents.path == "/oauth/authorize/native",
+            let items = urlComponents.queryItems,
+            let codeItem = items.first(where: { $0.name == "code"})
                 
         {
             OAuth2Service().lastCode = codeItem.value
-            return codeItem.value                                              //6
+            return codeItem.value
         } else {
             return nil
         }
@@ -96,10 +96,10 @@ extension WebViewViewController: WKNavigationDelegate    {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let code = code(from: navigationAction) {
-            delegate?.webViewViewController(self, didAuthenticateWithCode: code)       //2
-            decisionHandler(.cancel)  //3
+            delegate?.webViewViewController(self, didAuthenticateWithCode: code)
+            decisionHandler(.cancel)
         } else {
-            decisionHandler(.allow)   //4
+            decisionHandler(.allow)
         }
     }
     

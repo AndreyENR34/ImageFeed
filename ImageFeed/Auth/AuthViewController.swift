@@ -9,10 +9,14 @@ import UIKit
 
 final class AuthViewController: UIViewController {
     
+    
     weak var delegate: AuthViewControllerDelegate?
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         
     }
     

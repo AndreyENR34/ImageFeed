@@ -28,6 +28,7 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupProfileView()
         showPhotoView()
         showEmailLabel()
         showNameLabel()
@@ -35,6 +36,16 @@ final class ProfileViewController: UIViewController {
         showlogOutButton()
         updateProfileDetails()
     }
+    
+    private func setupProfileView() {
+       let viewProfileView = UIView()
+        viewProfileView.backgroundColor = UIColor(named: "YPBlack")
+        viewProfileView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(viewProfileView)
+        viewProfileView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        viewProfileView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+    }
+    
     
     private func updateProfileDetails() {
         emailLabel.text = profileservice.profile?.loginName
