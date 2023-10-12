@@ -14,10 +14,8 @@ fileprivate let UnsplashAuthorizeURLString = "https://unsplash.com/oauth/authori
 final class WebViewViewController: UIViewController  {
     
     
-    
     @IBOutlet private var UIprogressView: UIProgressView!
-    
-    
+
     @IBOutlet private var webView: WKWebView!
     
     weak var delegate: WebViewViewControllerDelegate?
@@ -66,13 +64,7 @@ final class WebViewViewController: UIViewController  {
     private func updateProgress() {
         UIprogressView.progress = Float(webView.estimatedProgress)
         UIprogressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
-    }
-    
-    
-    
-    
-    
-    
+    }    
     
     func code(from navigationAction: WKNavigationAction) -> String? {
         if
@@ -88,7 +80,6 @@ final class WebViewViewController: UIViewController  {
         } else {
             return nil
         }
-        
     }
     
 }

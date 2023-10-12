@@ -13,6 +13,8 @@ final class ProfileViewController: UIViewController {
     private let profileservice = ProfileService.shared
     private let profileimageservice = ProfileImageService.shared
     
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     var profileImage = UIImage(named: "profileImage")
     
     let emailLabel = UILabel()
@@ -28,17 +30,28 @@ final class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupProfileView()
         showPhotoView()
         showEmailLabel()
         showNameLabel()
         showStatusLabel()
         showlogOutButton()
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(forName: ProfileImageService.DidChangeNotification, object: nil, queue: .main) { [weak self] _ in
+                guard let self = self else {return}
+                self.updateAvatar()
+            }
+        
+        
+        
+        updateAvatar()
         updateProfileDetails()
     }
     
     private func setupProfileView() {
-       let viewProfileView = UIView()
+        let viewProfileView = UIView()
         viewProfileView.backgroundColor = UIColor(named: "YPBlack")
         viewProfileView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(viewProfileView)
@@ -51,9 +64,13 @@ final class ProfileViewController: UIViewController {
         emailLabel.text = profileservice.profile?.loginName
         nameLabel.text = profileservice.profile?.name
         statusLabel.text = profileservice.profile?.bio
-        guard let avatarURL = profileimageservice.avatarURl else {
-            return}
-        let imageUrlPath = URL(string: avatarURL)
+    }
+    
+    private func updateAvatar() {
+        guard
+            let avatarURL = profileimageservice.avatarURl,
+            let imageUrlPath = URL(string: avatarURL)
+        else {return}
         let profilePhotoView = UIImageView()
         
         profilePhotoView.kf.setImage(with: imageUrlPath)

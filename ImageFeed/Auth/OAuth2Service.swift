@@ -24,7 +24,8 @@ final class OAuth2Service {
     
     var lastCode: String?
     var fetchOneWork = false
-   static let shared = OAuth2Service()
+    static let shared = OAuth2Service()
+    private var task: URLSessionTask?
     private let urlSession = URLSession.shared
     private (set) var authToken: String? {
         get {
@@ -32,32 +33,36 @@ final class OAuth2Service {
         }
         set {
             OAuth2TokenStorage().token = newValue
-        } }
+        }
+    }
+    
     func fetchAuthToken(
         _ code: String,
         completion: @escaping (Result<String, Error>) -> Void ){
             assert(Thread.isMainThread)
-                SplashViewController().showNetworkError()
-            if lastCode == code {return}
-            if fetchOneWork {return}
-            fetchOneWork = true
+            if lastCode == code  {return}
+            task?.cancel()
+            lastCode = code
             let request = authTokenRequest(code: code)
             let task = object(for: request) { [weak self] result in
                 switch result {
                 case .success(let body):
-                    TabBarViewController().switchToTabBarController()
+                    self?.task = nil
                     let authToken = body.accessToken
                     OAuth2TokenStorage().token = authToken
                     print(authToken)
                     self?.authToken = authToken
                     completion(.success(authToken))
                 case .failure(let error):
-                   
+                    self?.lastCode = nil
                     completion(.failure(error))
-                } }
+                }
+            }
+            self.task = task
             task.resume()
         }
 }
+
 extension OAuth2Service {
     private func object(
         for request: URLRequest,
@@ -79,11 +84,7 @@ extension OAuth2Service {
             httpMethod: "POST",
             baseURL: URL(string: "https://unsplash.com")!
         ) }
-    
-    
 }
-
-
 
 extension URLRequest {
     static func makeHTTPRequest(
@@ -91,13 +92,13 @@ extension URLRequest {
         httpMethod: String,
         baseURL: URL = DefaultBaseURL
     ) -> URLRequest {
-        
-        
-        
         var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)
         request.httpMethod = httpMethod
         return request
-    } }
+    }
+    
+}
+
 // MARK: - Network Connection
 enum NetworkError: Error {
     case httpStatusCode(Int)
@@ -105,7 +106,6 @@ enum NetworkError: Error {
     case urlSessionError
     case makeGenericError
 }
-
 
 public extension URLSession {
     func objectTask<T: Decodable>(
@@ -126,7 +126,7 @@ public extension URLSession {
                     do{
                         let decoder = JSONDecoder()
                         let result = try decoder.decode(T.self,from: data)
-                            fulfillCompletion(.success(result as! T))
+                        fulfillCompletion(.success(result))
                     } catch {fulfillCompletion(.failure(error))
                     }
                 } else {
@@ -138,12 +138,10 @@ public extension URLSession {
             } else {
                 fulfillCompletion(.failure(NetworkError.urlSessionError))
             }
-    
+            
         })
         return task
-       
-       
-     }
+    }
     
 }
 

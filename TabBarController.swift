@@ -19,9 +19,24 @@ final class TabBarController: UITabBarController {
             title: nil,
             image: UIImage(named: "tab_profile_active"),
             selectedImage: nil
-            )
+        )
         
         self.viewControllers = [imagesListViewController, profileViewController]
+    }
+    
+}
+
+extension TabBarController {
+    
+    
+    func switchToTabBarController() {
+        
+        guard let window = UIApplication.shared.windows.first else {fatalError("Invalid Configuration")}
+        
+        let tabBarController = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "TabBarViewController")
+        
+        window.rootViewController = tabBarController
     }
     
 }

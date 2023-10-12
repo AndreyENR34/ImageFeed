@@ -19,15 +19,15 @@ final class ProfileImageService {
     private (set) var avatarURl: String?
     var userName = ""
     var imageURLPath = ""
-  
+    
     
     func fetchProfileImageURL(userName: String, _ completion: @escaping (Result<String?, Error>) -> Void) {
-     assert(Thread.isMainThread)
+        assert(Thread.isMainThread)
+        if OAuth2TokenStorage().token == nil {return}
         if fetchProfileImageOneWork {return}
         fetchProfileImageOneWork = true
-        guard let token = OAuth2TokenStorage().token else {return}
         guard let userName = profileService.profile?.userName else {return}
-            self.userName = userName
+        self.userName = userName
         let request = profileImageURLRequest(username: self.userName)
         let task = object(for: request) {  result in
             switch result {
@@ -36,20 +36,20 @@ final class ProfileImageService {
                 self.avatarURl = profileImage.small
                 completion(.success(self.avatarURl))
                 NotificationCenter.default
-         .post(
-             name: ProfileImageService.DidChangeNotification,
-             object: self,
-             userInfo: ["URL" : profileImage])
+                    .post(
+                        name: ProfileImageService.DidChangeNotification,
+                        object: self,
+                        userInfo: ["URL" : profileImage])
                 
             case .failure(let error):
-
+                
                 print(error)
                 completion(.failure(error))
             } }
         
         task.resume()
     }
-    }
+}
 
 extension ProfileImageService {
     private func object(
@@ -61,8 +61,8 @@ extension ProfileImageService {
             completion(response)
         }
     }
-
-
+    
+    
     private func profileImageURLRequest(username: String) -> URLRequest {
         URLRequest.makeHTTPRequestProfileImageURL(
             path: "/users/\(username)",
@@ -71,7 +71,7 @@ extension ProfileImageService {
         ) }
     struct UserResult: Codable {
         let profileImage: ImageURL?
-    
+        
         enum CodingKeys: String, CodingKey {
             case profileImage = "profile_image"
         }
@@ -91,7 +91,7 @@ extension URLRequest {
         path: String,
         httpMethod: String,
         baseURL: URL = DefaultBaseURL,
-        token: String = OAuth2TokenStorage().token!
+        token: String = OAuth2TokenStorage().token ?? ""
         
     ) -> URLRequest {
         print(path)

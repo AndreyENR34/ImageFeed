@@ -9,6 +9,7 @@ import Foundation
 import WebKit
 
 struct Profile {
+    
     var userName: String?
     var name: String?
     var loginName: String?
@@ -17,20 +18,18 @@ struct Profile {
 
 final class ProfileService {
     
-    
- static let shared = ProfileService()
+    static let shared = ProfileService()
     
     private let urlSession = URLSession.shared
     var fetchProfileOneWork = false
     private(set) var profile: Profile?
     
-  
     
     func fetchProfile(_ token: String, completion: @escaping (Result<Profile, Error>) -> Void) {
-     assert(Thread.isMainThread)
+        assert(Thread.isMainThread)
+        if OAuth2TokenStorage().token == nil {return}
         if fetchProfileOneWork {return}
         fetchProfileOneWork = true
-        guard let token = OAuth2TokenStorage().token else {return}
         let request = selfProfileRequest()
         let task = object(for: request) {  result in
             switch result {
@@ -43,14 +42,14 @@ final class ProfileService {
                 completion(.success(self.profile!))
                 
             case .failure(let error):
-
+                
                 print(error)
                 completion(.failure(error))
             } }
         
         task.resume()
     }
-    }
+}
 
 extension ProfileService {
     private func object(
@@ -86,11 +85,12 @@ extension ProfileService {
 }
 
 extension URLRequest {
+    
     static func makeHTTPRequestProfile(
         path: String,
         httpMethod: String,
         baseURL: URL = DefaultBaseURL,
-        token: String = OAuth2TokenStorage().token!
+        token: String = OAuth2TokenStorage().token ?? ""
         
     ) -> URLRequest {
         var request = URLRequest(url: URL(string: path, relativeTo: baseURL)!)

@@ -19,6 +19,5 @@ final class ImagesListCell: UITableViewCell {
     @IBAction func likeButton(_ sender: Any) {
     }
     
-    
     static let reuseIdentifier = "ImagesListCell"
 }

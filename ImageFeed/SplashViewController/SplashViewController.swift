@@ -6,25 +6,7 @@
 //
 
 import UIKit
-import ProgressHUD
 
-
-
-final class UIBlockingProgressHUD {
-    private static var window: UIWindow? {
-        return UIApplication.shared.windows.first
-    }
-    
-    static func show() {
-        window?.isUserInteractionEnabled = false
-        ProgressHUD.show()
-    }
-    
-    static func dismiss() {
-        window?.isUserInteractionEnabled = true
-        ProgressHUD.dismiss()
-    }
-}
 
 final class SplashViewController: UIViewController {
     
@@ -34,16 +16,15 @@ final class SplashViewController: UIViewController {
     
     var splashViewImage = UIImage(named: "splash_screen_logo")
     
-  
+    
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
         
-        setupSplashView()
         showSplashImageView()
         
-       // OAuth2TokenStorage().token = ""
-      
+        //OAuth2TokenStorage().token = ""
+        
         if  OAuth2TokenStorage().token == "" {
             let storyboard = UIStoryboard(name: "Main", bundle: .main)
             guard let AuthViewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else {return}
@@ -54,13 +35,8 @@ final class SplashViewController: UIViewController {
             
         } else {
             self.fetchProfile(token: OAuth2TokenStorage().token!)
-            TabBarViewController().switchToTabBarController()
+            TabBarController().switchToTabBarController()
         }
-    }
-    
-    private func setupSplashView() {
-        let splashViewController = SplashViewController()
-        splashViewController.view.backgroundColor = .black
     }
     
     private func showSplashImageView() {
@@ -81,16 +57,16 @@ extension SplashViewController {
         
         
         let alert = UIAlertController(title: "Что-то пошло не так(",
-                                     message: "Не удалось войти в систему",
+                                      message: "Не удалось войти в систему",
                                       preferredStyle: .alert)
         
         let action = UIAlertAction(title: "OK", style: .default, handler: nil)
         
         alert.addAction(action)
         
-       presentedViewController?.present(alert, animated: true)
+        presentedViewController?.present(alert, animated: true)
     }
-    }
+}
 
 extension SplashViewController: AuthViewControllerDelegate  {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
@@ -99,66 +75,64 @@ extension SplashViewController: AuthViewControllerDelegate  {
         dismiss(animated: true) { [weak self] in
             guard let self = self else {return}
             
-                    self.fetchOAuthToken(code)
+            self.fetchOAuthToken(code)
         }
     }
     
     private func fetchOAuthToken(_ code: String) {
         OAuth2Service().fetchAuthToken(code, completion: { [weak self] result in
-               guard let self = self else { return }
-               switch result {
-                   
-               case .success(let result):
-                   OAuth2TokenStorage().token = result
-                   OAuth2Service().lastCode = nil
-                   OAuth2Service().fetchOneWork = false
-                   UIBlockingProgressHUD.dismiss()
-                   TabBarController()
-                   self.fetchProfile(token: result)
+            guard let self else { return }
+            switch result {
                 
-               case .failure(let error):
-                   UIBlockingProgressHUD.dismiss()
-                    self.showNetworkError()
-                   break
-               }
-           }
+            case .success(let result):
+                OAuth2TokenStorage().token = result
+                OAuth2Service().lastCode = nil
+                OAuth2Service().fetchOneWork = false
+                UIBlockingProgressHUD.dismiss()
+                self.fetchProfile(token: result)
+                
+            case .failure(_):
+                UIBlockingProgressHUD.dismiss()
+                self.showNetworkError()
+                break
+            }
+        }
         )
-       }
-
+    }
     
-         func fetchProfile(token: String) {
-                profileService.fetchProfile(token) { [weak self] result in
+    
+    func fetchProfile(token: String) {
+        profileService.fetchProfile(token) { [weak self] result in
+            switch result {
+            case .success(let profile):
+                guard let userName = profile.userName else {
+                    return}
+                ProfileImageService.shared.fetchProfileImageURL(userName: userName) { [weak self] result in
+                    
                     switch result {
-                    case .success(let profile):
-                        self?.profileService.fetchProfileOneWork = false
-                        guard let userName = profile.userName else {
-                            return}
-                        ProfileImageService.shared.fetchProfileImageURL(userName: userName) { [weak self] result in
-                            
-                            switch result {
-                            case .success(let imageURL):
-                                self?.profileImageService.fetchProfileImageOneWork = false
-                                
-                                
-                              
-                                
-                            case .failure:
-                                break
-                            }
-                        }
-                        UIBlockingProgressHUD.dismiss()
-                        TabBarViewController().switchToTabBarController()
-                    case .failure(let error):
-                        UIBlockingProgressHUD.dismiss()
+                    case .success(_):
+                        self?.profileImageService.fetchProfileImageOneWork = false
                         
+                        
+                        
+                        
+                    case .failure:
                         break
                     }
                 }
+                UIBlockingProgressHUD.dismiss()
+                TabBarController().switchToTabBarController()
+            case .failure(_):
+                UIBlockingProgressHUD.dismiss()
+                
+                break
             }
         }
-        
-        
-    
-    
+    }
+}
+
+
+
+
 
 
