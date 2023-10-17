@@ -38,7 +38,7 @@ final class ProfileService {
                 let firstName = body.firstName
                 let lastName = body.lastName
                 let bio = body.bio
-                self.profile = Profile(userName: userName, name: "\(firstName)" + " " + "\(lastName)", loginName: "@\(userName)", bio: bio)
+                self.profile = Profile(userName: userName, name: "\(firstName)" + " " + "\(lastName ?? "")", loginName: "@\(userName)", bio: bio ?? "")
                 completion(.success(self.profile!))
                 
             case .failure(let error):
@@ -71,8 +71,8 @@ extension ProfileService {
         
         let userName: String
         let firstName: String
-        let lastName: String
-        let bio: String
+        let lastName: String?
+        let bio: String?
         
         enum CodingKeys: String, CodingKey {
             case userName = "username"
