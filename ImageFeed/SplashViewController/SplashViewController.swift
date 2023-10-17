@@ -23,7 +23,7 @@ final class SplashViewController: UIViewController {
         
         showSplashImageView()
         
-        //OAuth2TokenStorage().token = ""
+        
         
         if  OAuth2TokenStorage().token == "" {
             let storyboard = UIStoryboard(name: "Main", bundle: .main)
