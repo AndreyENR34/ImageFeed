@@ -6,29 +6,82 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
-    let profileImage = UIImage(named: "profileImage")
+    private let profileservice = ProfileService.shared
+    private let profileimageservice = ProfileImageService.shared
+    
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
+    var profileImage = UIImage(named: "profileImage")
     
     let emailLabel = UILabel()
-    let email = "@ekaterina_nov"
+    var email = "@ekaterina_nov"
     
     let nameLabel = UILabel()
-    let name = "Екатерина Новикова"
+    var name = "Екатерина Новикова"
     
     let statusLabel = UILabel()
-    let status = "Hello, world!"
+    var status = "Hello, world!"
     
     let logOutButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupProfileView()
         showPhotoView()
         showEmailLabel()
         showNameLabel()
         showStatusLabel()
         showlogOutButton()
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(forName: ProfileImageService.DidChangeNotification, object: nil, queue: .main) { [weak self] _ in
+                guard let self = self else {return}
+                self.updateAvatar()
+            }
+        
+        
+        
+        updateAvatar()
+        updateProfileDetails()
+    }
+    
+    private func setupProfileView() {
+        let viewProfileView = UIView()
+        viewProfileView.backgroundColor = UIColor(named: "YPBlack")
+        viewProfileView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(viewProfileView)
+        viewProfileView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        viewProfileView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+    }
+    
+    
+    private func updateProfileDetails() {
+        emailLabel.text = profileservice.profile?.loginName
+        nameLabel.text = profileservice.profile?.name
+        statusLabel.text = profileservice.profile?.bio
+    }
+    
+    private func updateAvatar() {
+        guard
+            let avatarURL = profileimageservice.avatarURl,
+            let imageUrlPath = URL(string: avatarURL)
+        else {return}
+        let profilePhotoView = UIImageView()
+        
+        profilePhotoView.kf.setImage(with: imageUrlPath)
+        view.addSubview(profilePhotoView)
+        profilePhotoView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            profilePhotoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 32),
+            profilePhotoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            profilePhotoView.heightAnchor.constraint(equalToConstant: 70),
+            profilePhotoView.widthAnchor.constraint(equalToConstant: 70)
+        ])
     }
     
     private func showPhotoView() {

@@ -9,7 +9,9 @@ import UIKit
 
 final class AuthViewController: UIViewController {
     
+    
     weak var delegate: AuthViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,18 +38,13 @@ extension AuthViewController: WebViewViewControllerDelegate {
         
         
         delegate?.authViewController(self, didAuthenticateWithCode: code)
-        
-      
-        
+    
     }
     
     
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
     }
-    
-    
-    
 }
 
 protocol AuthViewControllerDelegate: AnyObject {
