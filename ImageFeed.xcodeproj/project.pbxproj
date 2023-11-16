@@ -23,6 +23,7 @@
 		DB51D7CB29A034970060FFD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB51D7CA29A034970060FFD7 /* Assets.xcassets */; };
 		DB51D7CE29A034970060FFD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB51D7CC29A034970060FFD7 /* LaunchScreen.storyboard */; };
 		DB9214652AB0863800543633 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9214642AB0863800543633 /* SplashViewController.swift */; };
+		DBAEBE4B2AE584D5005977E0 /* ImagesListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAEBE4A2AE584D5005977E0 /* ImagesListService.swift */; };
 		DBC204C22AB418320064CDD1 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = DBC204C12AB418320064CDD1 /* ProgressHUD */; };
 		DBC204C42AB553670064CDD1 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC204C32AB553670064CDD1 /* ProfileService.swift */; };
 		DBC8E9702AD415D100A78805 /* UIBlockingProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC8E96F2AD415D100A78805 /* UIBlockingProgressHUD.swift */; };
@@ -51,6 +52,7 @@
 		DB51D7CD29A034970060FFD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB51D7CF29A034970060FFD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB9214642AB0863800543633 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		DBAEBE4A2AE584D5005977E0 /* ImagesListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImagesListService.swift; path = ImageFeed/SplashViewController/ImagesListService.swift; sourceTree = "<group>"; };
 		DBC204C32AB553670064CDD1 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		DBC8E96F2AD415D100A78805 /* UIBlockingProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgressHUD.swift; sourceTree = "<group>"; };
 		DBD024A22ACD102B00D49E1A /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 		DB51D7B529A034950060FFD7 = {
 			isa = PBXGroup;
 			children = (
+				DBAEBE4A2AE584D5005977E0 /* ImagesListService.swift */,
 				DBD024A22ACD102B00D49E1A /* TabBarController.swift */,
 				DB51D7C029A034950060FFD7 /* ImageFeed */,
 				DB51D7BF29A034950060FFD7 /* Products */,
@@ -272,6 +275,7 @@
 				DB51D7C629A034950060FFD7 /* ImagesListViewController.swift in Sources */,
 				DB03797629D80CDA0067A8BF /* WebViewViewController.swift in Sources */,
 				DB16FDE229B737EE005FA5EC /* ImagesCell.swift in Sources */,
+				DBAEBE4B2AE584D5005977E0 /* ImagesListService.swift in Sources */,
 				DBC8E9702AD415D100A78805 /* UIBlockingProgressHUD.swift in Sources */,
 				DB9214652AB0863800543633 /* SplashViewController.swift in Sources */,
 				DBD024A32ACD102B00D49E1A /* TabBarController.swift in Sources */,
